@@ -1,11 +1,7 @@
-#jugador1 = input(str('elige una opcion, piedra, papel, tijera'))
-  
-# class Jugador:
-# class Rondajuego:
-# class Juego:
-
+#!/usr/bin/env python3
 class Jugador:
-    def __init__(self):
+    def __init__(self, nombre):
+        self.nombre = nombre
         self.puntaje = 0
         self.eligio = ""
     def elegir(self):
@@ -20,6 +16,7 @@ class Jugador:
         return switcher[self.eligio]
     def incrementaPuntaje(self):
         self.puntaje += 1
+
 class Rondajuego:
     def __init__(self, p1, p2):
         self.rules = [
@@ -28,69 +25,54 @@ class Rondajuego:
             [-1, 1, 0]
         ]
 
-        p1.choose()
-        p2.choose()
-        result = self.compareChoices(p1,p2)
-        print("Round resulted in a {result}".format(result = self.obtieneResultadoCadena(result) ))
+        p1.elegir()
+        p2.elegir()
+        result = self.compareEleccion(p1,p2)
+        if result > 0:
+            p1.incrementaPuntaje()
+        elif result < 0:
+            p2.incrementaPuntaje()    
+        print("la Ronda resulto en que Spock {result}".format(result = self.obtieneResultadoCadena(result) ))
+
     def compareEleccion(self, p1, p2):
         return self.rules[p1.aEleccionNumerica()][p2.aEleccionNumerica()]
     def puntajes(self):
         print("implementar")
     def obtieneResultadoCadena(self, result):
         res = {
-            0: "draw",
-            1: "win",
-            -1: "loss"
+            0: "empata",
+            1: "gana",
+            -1: "pierde"
         }       
         return res[result]
 
-class juego:
+
+class Juego:
     def __init__(self):
         self.finalizarJuego = False
-        self.Jugador = Jugador("Spock")
+        self.jugador = Jugador("Spock")
         self.segundoJugador = Jugador("Kirk")
-    def start(selft):
-        juego_ronda = Rondajuego(self.jugador, self.segundojugador)
+    def comenzar(self):
+        while not self.finalizarJuego:
+            Rondajuego(self.jugador, self.segundoJugador)
+            self.revisarcondicionfinalde()
 
-    def revisarcondicionfinal(self):
-#class Rondajuego:
-
-# class Juego:
-#     def __init__(self):
-#         self.finalizarJuego = False
-#         self.Jugador = Jugador()
-#         self.secondJugador = Jugador()
-# _________________________
-# class Participant:
-#     def __init__(self, name):
-#         self.name = name
-#         self.points = 0
-#         self.choice = ""
-#     def choose(self):
-#         self.choice = input("{name}, select rock, paper or scissor: ".format(name= self.name))
-#         print("{name} selects {choice}".format(name=self.name, choice = self.choice))
-
-# class GameRound:
-#     def __init__(self, p1, p2):
-#         p1.choose()
-#         p2.choose()
-#     def compareChoices(self):
-#         print("implement")
-#     def awardPoints(self):
-#         print("implement")
-
-# class Game:
-#     def __init__(self):
-#         self.endGame = False
-#         self.participant = Participant("Spock")
-#         self.secondParticipant = Participant("Kirk")
-#     def start(self):
-#         game_round = GameRound(self.participant, self.secondParticipant)
-
-#     def checkEndCondition(self):
-#         print("implement")
-#     def determineWinner(self):
-#         print("implement")
-
-# game = Game()
-# game.start()
+    def revisarcondicionfinalde(self):
+        respuesta = input("Continue game y/n: ")
+        if respuesta == 'y':
+            Rondajuego(self.jugador, self.segundoJugador)
+            self.revisarcondicionfinalde()
+        else:
+            print("juego terminado, {j1nombre} tiene {j1puntaje}, y {j2nombre} tiene {j2puntaje}".format(j1nombre = self.jugador.nombre, j1puntaje= self.jugador.puntaje, j2nombre=self.segundoJugador.nombre, j2puntaje=self.segundoJugador.puntaje))
+            self.quiengano()
+            self.finalizarJuego = True
+    def quiengano(self):
+        resultadocadena = "It's a Draw"
+        if self.jugador.puntaje > self.segundoJugador.puntaje:
+            resultadocadena = "El ganador es {name}".format(name=self.jugador.nombre)
+        elif self.jugador.puntaje < self.segundoJugador.puntaje:
+            resultadocadena = "El ganador es {name}".format(name=self.segundoJugador.nombre)
+        print(resultadocadena)
+    
+juego = Juego()
+juego.comenzar()
