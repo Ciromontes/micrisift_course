@@ -17,7 +17,9 @@ class Jugador:
             "papel": 1,
             "tijera": 2
         }
-        return switcher[self.choice]
+        return switcher[self.eligio]
+    def incrementaPuntaje(self):
+        self.puntaje += 1
 class Rondajuego:
     def __init__(self, p1, p2):
         self.rules = [

@@ -13,6 +13,8 @@ class Participant:
             "scissor": 2
         }
         return switcher[self.choice]
+    def incrementPoint(self):
+        self.points += 1
     
 class GameRound:
     def __init__(self, p1, p2):
@@ -21,11 +23,15 @@ class GameRound:
             [1, 0, -1],
             [-1, 1, 0]
         ]
-
         p1.choose()
         p2.choose()
         result = self.compareChoices(p1,p2)
+        if result > 0:
+            p1.incrementPoint()
+        elif result < 0:
+            p2.incrementPoint()
         print("Round resulted in a {result}".format(result = self.getResultAsString(result) ))
+
     def compareChoices(self, p1, p2):
         return self.rules[p1.toNumericalChoice()][p2.toNumericalChoice()]
     def awardPoints(self):
