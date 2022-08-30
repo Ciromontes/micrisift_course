@@ -11,6 +11,13 @@ class Jugador:
     def elegir(self):
         self.eligio = input("{nombre}, seleccione piedra, papel o tijera: ".format(nombre= self.nombre))
         print("{nombre} seleccion {eligio}".format(nombre=self.nombre, eligio = self.eligio))
+    def aEleccionNumerica(self):
+        switcher = {
+            "piedra": 0,
+            "papel": 1,
+            "tijera": 2
+        }
+        return switcher[self.choice]
 class Rondajuego:
     def __init__(self, p1, p2):
         p1.elegir()

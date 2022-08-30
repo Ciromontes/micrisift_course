@@ -18,8 +18,8 @@ class GameRound:
     def __init__(self, p1, p2):
         p1.choose()
         p2.choose()
-    def compareChoices(self):
-        print("implement")
+    def compareChoices(self, p1, p2):
+        return self.rules[p1.toNumericalChoice()][p2.toNumericalChoice()]
     def awardPoints(self):
         print("implement")
 
