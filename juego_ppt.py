@@ -20,12 +20,27 @@ class Jugador:
         return switcher[self.choice]
 class Rondajuego:
     def __init__(self, p1, p2):
-        p1.elegir()
-        p2.elegir()
+        self.rules = [
+            [0, -1, 1],
+            [1, 0, -1],
+            [-1, 1, 0]
+        ]
+
+        p1.choose()
+        p2.choose()
+        result = self.compareChoices(p1,p2)
+        print("Round resulted in a {result}".format(result = self.obtieneResultadoCadena(result) ))
     def compareEleccion(self, p1, p2):
         return self.rules[p1.aEleccionNumerica()][p2.aEleccionNumerica()]
     def puntajes(self):
         print("implementar")
+    def obtieneResultadoCadena(self, result):
+        res = {
+            0: "draw",
+            1: "win",
+            -1: "loss"
+        }       
+        return res[result]
 
 class juego:
     def __init__(self):
