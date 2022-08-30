@@ -22,8 +22,8 @@ class Rondajuego:
     def __init__(self, p1, p2):
         p1.elegir()
         p2.elegir()
-    def compareEleccion(self):
-        print("implementar")
+    def compareEleccion(self, p1, p2):
+        return self.rules[p1.aEleccionNumerica()][p2.aEleccionNumerica()]
     def puntajes(self):
         print("implementar")
 
